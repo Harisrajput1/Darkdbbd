@@ -1,7 +1,18 @@
-# Ubuntu Systemd Docker Image (SSH Enabled)
+# docker-ubuntu-systemd-ssh
 
-This repository provides a **Dockerfile for Ubuntu 22.04** with **full systemd (systemctl) support** and **OpenSSH server enabled**.  
-It is useful for VPS-like containers, testing system services, or running systemd-based applications inside Docker.
+Ubuntu 22.04 Systemd & SSH Enabled Docker Image
+
+This Docker image provides a **VPS-like Ubuntu 22.04 environment** with
+**full systemd (systemctl) support** and **OpenSSH server enabled**.
+It is ideal for testing services, systemd-based applications, and SSH access inside Docker.
+
+---
+
+## 🖥️ Screenshot
+
+![Screenshot](screenshot.png)
+
+> _(Optional: add container or systemctl screenshot)_
 
 ---
 
@@ -10,19 +21,22 @@ It is useful for VPS-like containers, testing system services, or running system
 - Ubuntu **22.04 LTS**
 - Full **systemd / systemctl** support
 - **OpenSSH Server** pre-installed
-- SSH root login enabled (for testing)
+- Root SSH login enabled (testing purpose)
 - Port **22 exposed**
-- Compatible with Docker (privileged mode)
+- VPS-like container behavior
+- Docker compatible (privileged mode)
 
 ---
 
-## 📦 Files
+## 🚀 Usage
 
-- `Dockerfile` – Ubuntu systemd + SSH Docker image
-
----
-
-## 🚀 Build the Image
+Run the container using Docker:
 
 ```bash
-docker build -t ubuntu-systemd-ssh .
+docker run -itd \
+  --name ubuntu-systemd-ssh \
+  --privileged \
+  --cgroupns=host \
+  -v /sys/fs/cgroup:/sys/fs/cgroup:rw \
+  -p 2222:22 \
+  docker-ubuntu-systemd-ssh
